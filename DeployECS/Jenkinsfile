@@ -1,0 +1,30 @@
+pipeline{
+    agent any
+    tools {
+    }
+    environment {
+    }
+    stages {
+        stage('Checkout'){
+            steps{
+                checkout scm
+            }
+        }
+        stage('MyStage') {
+        ansibleTower(
+            towerServer: 'CC-AWX-Instance',
+            templateType: 'job',
+            jobTemplate: 'Deploy ECS',
+            importTowerLogs: true,
+            inventory: 'INVENTORIES',
+            jobTags: '',
+			skipJobTags: '',
+            limit: '',
+            removeColor: false,
+            verbose: true,
+            credential: 'cc-aws-crednetials',
+            async: false
+        )
+    }
+    }
+}
