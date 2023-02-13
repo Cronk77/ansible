@@ -54,15 +54,15 @@ underwriter_desire_count: 1
 user_desire_count: 1
 
 # DB credentials and targets
-db_host: "{{ lookup('amazon.aws.aws_secret', 'cc-aline-db-cred.host', nested=true) }}"
-db_name: "{{ lookup('amazon.aws.aws_secret', 'cc-aline-db-cred.dbname', nested=true) }}"
-db_password: "{{ lookup('amazon.aws.aws_secret', 'cc-aline-db-cred.password', nested=true) }}"
-db_username: "{{ lookup('amazon.aws.aws_secret', 'cc-aline-db-cred.username', nested=true) }}"
+db_host: "{{ lookup('amazon.aws.aws_secret', 'cc-aline-db-cred.host', nested=true, region={{ aws_region }}) }}"
+db_name: "{{ lookup('amazon.aws.aws_secret', 'cc-aline-db-cred.dbname', nested=true, region={{ aws_region }}) }}"
+db_password: "{{ lookup('amazon.aws.aws_secret', 'cc-aline-db-cred.password', nested=true, region={{ aws_region }}) }}"
+db_username: "{{ lookup('amazon.aws.aws_secret', 'cc-aline-db-cred.username', nested=true, region={{ aws_region }}) }}"
 db_port: 3306
 
 # Container Keys
-jwt_secret_key: "{{ lookup('amazon.aws.aws_secret', 'Aline-Cred.AlineJWTSecretKey', nested=true) }}"
-encrypt_secret_key: "{{ lookup('amazon.aws.aws_secret', 'Aline-Cred.AlineEncryptKey', nested=true) }}"
+jwt_secret_key: "{{ lookup('amazon.aws.aws_secret', 'Aline-Cred.AlineJWTSecretKey', nested=true, region={{ aws_region }}) }}"
+encrypt_secret_key: "{{ lookup('amazon.aws.aws_secret', 'Aline-Cred.AlineEncryptKey', nested=true, region={{ aws_region }}) }}"
 
 # Stack names
 networking_stack: "CC-ECS-Networking"
