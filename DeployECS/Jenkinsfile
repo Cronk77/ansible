@@ -17,8 +17,8 @@ pipeline{
                             description: 'If you would like to Deploy ECS, just push the button',name: 'Yes?')])
                     }
                 }
-            }
         }
+        //}
         stage('Deploy ECS via AWX') {
             steps{
                 // script{
@@ -54,5 +54,5 @@ pipeline{
         //     }
 
         // }
-    // }
+    }
 }
