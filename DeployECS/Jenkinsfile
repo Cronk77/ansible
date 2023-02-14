@@ -10,30 +10,32 @@ pipeline{
             }
         }
         stage('Deploy ECS via AWX') {
-            script {
-                def USER_INPUT = input(
-                        message: 'Ready to Deploy, yes or no?',
-                        parameters: [
-                                [$class: 'ChoiceParameterDefinition',
-                                choices: ['no','yes'].join('\n'),
-                                name: 'input',
-                                description: 'Menu - select box option']
-                        ])
+            steps{
+                script {
+                    def USER_INPUT = input(
+                            message: 'Ready to Deploy, yes or no?',
+                            parameters: [
+                                    [$class: 'ChoiceParameterDefinition',
+                                    choices: ['no','yes'].join('\n'),
+                                    name: 'input',
+                                    description: 'Menu - select box option']
+                            ])
 
-                echo "The answer is: ${USER_INPUT}"
+                    echo "The answer is: ${USER_INPUT}"
 
-                if( "${USER_INPUT}" == "yes"){
-                    ansibleTower(
-                        towerServer: 'CC-AWX-Instance',
-                        jobTemplate: 'Deploy ECS',
-                        jobType: 'run',
-                        towerCredentialsId: 'cc-awx-cred',
-                        towerLogLevel: 'full',
-                        removeColor: false,
-                        verbose: true
-                    )
-                } else {
-                    echo "User has chosen to not Deploy ECS!"
+                    if( "${USER_INPUT}" == "yes"){
+                        ansibleTower(
+                            towerServer: 'CC-AWX-Instance',
+                            jobTemplate: 'Deploy ECS',
+                            jobType: 'run',
+                            towerCredentialsId: 'cc-awx-cred',
+                            towerLogLevel: 'full',
+                            removeColor: false,
+                            verbose: true
+                        )
+                    } else {
+                        echo "User has chosen to not Deploy ECS!"
+                    }
                 }
             }
         }
