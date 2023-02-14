@@ -20,9 +20,6 @@ pipeline{
                                     name: 'input',
                                     description: 'Menu - select box option']
                             ])
-
-                    echo "The answer is: ${USER_INPUT}"
-
                     if( "${USER_INPUT}" == "yes"){
                         ansibleTower(
                             towerServer: 'CC-AWX-Instance',
@@ -39,19 +36,42 @@ pipeline{
                 }
             }
         }
-        // stage('Rollback ECS via AWX') {
-        //     steps{
-        //         ansibleTower(
-        //                 towerServer: 'CC-AWX-Instance',
-        //                 jobTemplate: 'Rollback ECS services',
-        //                 jobType: 'run',
-        //                 towerCredentialsId: 'cc-awx-cred',
-        //                 towerLogLevel: 'full',
-        //                 removeColor: false,
-        //                 verbose: true
-        //         )
-        //     }
-
-        // }
+        stage('Rollback ECS via AWX') {
+            steps{
+                script {
+                    def USER_INPUT = input(
+                            message: 'Ready to Rollback, yes or no?',
+                            parameters: [
+                                    [$class: 'ChoiceParameterDefinition',
+                                    choices: ['no','yes'].join('\n'),
+                                    name: 'input',
+                                    description: 'Menu - select box option']
+                            ])
+                    if( "${USER_INPUT}" == "yes"){
+                        ansibleTower(
+                            towerServer: 'CC-AWX-Instance',
+                            jobTemplate: 'Rollback ECS services',
+                            jobType: 'run',
+                            towerCredentialsId: 'cc-awx-cred',
+                            towerLogLevel: 'full',
+                            removeColor: false,
+                            verbose: true
+                        )
+                        sh "sleep 8m"
+                        ansibleTower(
+                            towerServer: 'CC-AWX-Instance',
+                            jobTemplate: 'Rollback ECS Networking',
+                            jobType: 'run',
+                            towerCredentialsId: 'cc-awx-cred',
+                            towerLogLevel: 'full',
+                            removeColor: false,
+                            verbose: true
+                        )
+                    } else {
+                        echo "User has chosen to not rollback ECS!"
+                    }
+                }
+            }
+        }
     }
 }
