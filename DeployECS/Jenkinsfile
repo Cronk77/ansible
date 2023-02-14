@@ -1,8 +1,5 @@
 pipeline{
     agent any
-    // environment {
-    //     deployYesOrNo = "No"
-    // }
     stages {
         stage('Checkout'){
             steps{

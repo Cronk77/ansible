@@ -20,5 +20,5 @@
         - {stack_name: "{{ transaction_stack }}"}
         - {stack_name: "{{ underwriter_stack }}"}
         - {stack_name: "{{ user_stack }}"}
-      poll: 0
-      async: 10
+      # poll: 0
+      # async: 10
