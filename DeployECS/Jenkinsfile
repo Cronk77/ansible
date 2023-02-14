@@ -12,17 +12,18 @@ pipeline{
         stage('Deploy?') {
             steps{
                 script {
-                env.deployYesOrNo = input(message: 'Would you Like to Deploy ECS?', ok: 'Yes', 
-                        parameters: [booleanParam(defaultValue: "No", 
-                        description: 'If you would like to Deploy ECS, just push the button',name: 'Yes?')])
+                    env.deployYesOrNo = input(message: 'Would you Like to Deploy ECS?', ok: 'Yes', 
+                            parameters: [booleanParam(defaultValue: "No", 
+                            description: 'If you would like to Deploy ECS, just push the button',name: 'Yes?')])
+                    }
                 }
             }
         }
         stage('Deploy ECS via AWX') {
             steps{
-                script{
-                    echo "${env.deployYesOrNo}"
-                    if (env.deployYesOrNo == "Yes"){
+                // script{
+                //     echo "${env.deployYesOrNo}"
+                //     if (env.deployYesOrNo == "Yes"){
                         ansibleTower(
                                 towerServer: 'CC-AWX-Instance',
                                 jobTemplate: 'Deploy ECS',
@@ -32,11 +33,11 @@ pipeline{
                                 removeColor: false,
                                 verbose: true
                         )
-                    }
-                    else{
-                        echo "User has chosen to not Deploy ECS!"
-                    }
-                }
+                //     }
+                //     else{
+                //         echo "User has chosen to not Deploy ECS!"
+                //     }
+                // }
             }
         }
         // stage('Rollback ECS via AWX') {
@@ -53,5 +54,5 @@ pipeline{
         //     }
 
         // }
-    }
+    // }
 }
