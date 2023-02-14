@@ -13,20 +13,30 @@ pipeline{
         }
 
         stage('Deploy ECS via AWX') {
+            // ansibleTower(
+            //     towerServer: 'CC-AWX-Instance',
+            //     templateType: 'run',
+            //     jobTemplate: 'Deploy ECS',
+            //     importTowerLogs: true,
+            //     inventory: 'INVENTORIES',
+            //     jobTags: '',
+            //     skipJobTags: '',
+            //     limit: '',
+            //     removeColor: false,
+            //     verbose: true,
+            //     credential: 'cc-aws-crednetials',
+            //     async: false
+            // )
             ansibleTower(
-                towerServer: 'CC-AWX-Instance',
-                templateType: 'job',
-                jobTemplate: 'Deploy ECS',
-                importTowerLogs: true,
-                inventory: 'INVENTORIES',
-                jobTags: '',
-                skipJobTags: '',
-                limit: '',
-                removeColor: false,
-                verbose: true,
-                credential: 'cc-aws-crednetials',
-                async: false
-            )
+                    jobTemplate: 'Deploy ECS',
+                    jobType: 'run',
+                    throwExceptionWhenFail: false,
+                    towerCredentialsId: 'cc-awx-cred',
+                    towerLogLevel: 'full',
+                    towerServer: 'CC-AWX-Instance',
+                    verbose: true
+                )
+
         }
     }
 }
