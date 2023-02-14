@@ -24,15 +24,15 @@ pipeline{
                 // script{
                 //     echo "${env.deployYesOrNo}"
                 //     if (env.deployYesOrNo == "Yes"){
-                        ansibleTower(
-                                towerServer: 'CC-AWX-Instance',
-                                jobTemplate: 'Deploy ECS',
-                                jobType: 'run',
-                                towerCredentialsId: 'cc-awx-cred',
-                                towerLogLevel: 'full',
-                                removeColor: false,
-                                verbose: true
-                        )
+                ansibleTower(
+                        towerServer: 'CC-AWX-Instance',
+                        jobTemplate: 'Deploy ECS',
+                        jobType: 'run',
+                        towerCredentialsId: 'cc-awx-cred',
+                        towerLogLevel: 'full',
+                        removeColor: false,
+                        verbose: true
+                )
                 //     }
                 //     else{
                 //         echo "User has chosen to not Deploy ECS!"
