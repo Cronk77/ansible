@@ -27,15 +27,17 @@ pipeline{
             //     credential: 'cc-aws-crednetials',
             //     async: false
             // )
-            ansibleTower(
-                    jobTemplate: 'Deploy ECS',
-                    jobType: 'run',
-                    throwExceptionWhenFail: false,
-                    towerCredentialsId: 'cc-awx-cred',
-                    towerLogLevel: 'full',
-                    towerServer: 'CC-AWX-Instance',
-                    verbose: true
+            steps{
+                ansibleTower(
+                        jobTemplate: 'Deploy ECS',
+                        jobType: 'run',
+                        throwExceptionWhenFail: false,
+                        towerCredentialsId: 'cc-awx-cred',
+                        towerLogLevel: 'full',
+                        towerServer: 'CC-AWX-Instance',
+                        verbose: true
                 )
+            }
         }
     }
 }
