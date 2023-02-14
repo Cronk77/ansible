@@ -21,6 +21,7 @@ pipeline{
         stage('Deploy ECS via AWX') {
             steps{
                 script{
+                    echo "${env.deployYesOrNo}"
                     if (env.deployYesOrNo == "Yes"){
                         ansibleTower(
                                 towerServer: 'CC-AWX-Instance',
