@@ -54,7 +54,7 @@ pipeline{
                             removeColor: false,
                             verbose: true
                         )
-                        sh "sleep 8m"
+                        // sh "sleep 8m"
                         ansibleTower(
                             towerServer: 'CC-AWX-Instance',
                             jobTemplate: 'Rollback ECS Networking',
