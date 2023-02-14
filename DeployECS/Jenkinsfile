@@ -1,8 +1,8 @@
 pipeline{
     agent any
-    tools {
-        "ansibleTower" "CC-AWX-Instance"
-    }
+    // tools {
+    //     "ansibleTower" "CC-AWX-Instance"
+    // }
     // environment {
     // }
     stages {
@@ -36,7 +36,6 @@ pipeline{
                     towerServer: 'CC-AWX-Instance',
                     verbose: true
                 )
-
         }
     }
 }
