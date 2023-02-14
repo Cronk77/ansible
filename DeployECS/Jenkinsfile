@@ -11,11 +11,11 @@ pipeline{
         }
         stage('Deploy?') {
             steps{
-                script {
-                    deployYesOrNo = input(message: 'Would you Like to Deploy ECS?', ok: 'Yes', 
+                // script {
+                def deployYesOrNo = input(message: 'Would you Like to Deploy ECS?', ok: 'Yes', 
                         parameters: [booleanParam(defaultValue: "No", 
                         description: 'If you would like to Deploy ECS, just push the button',name: 'Yes?')])
-                }
+                // }
             }
         }
         stage('Deploy ECS via AWX') {
